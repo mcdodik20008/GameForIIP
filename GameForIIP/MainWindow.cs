@@ -24,7 +24,7 @@ namespace GameForIIP
 
 			var time = 0;
 			var timer = new Timer();
-			timer.Interval = 500;
+			timer.Interval = 1;
 			timer.Tick += (sender, args) =>
 			{
 				time++;
@@ -34,13 +34,9 @@ namespace GameForIIP
 
 			Paint += (sender, args) =>
 			{
-				for (int i = 0; i <= time; i++)
-				{
-					args.Graphics.TranslateTransform(centerX, centerY);
-					args.Graphics.RotateTransform(i * 360f / 10);
-					args.Graphics.FillEllipse(Brushes.Blue, radius - size / 2, -size / 2, size, size);
-					args.Graphics.ResetTransform();
-				}
+				args.Graphics.FillRectangle(Brushes.Blue, Width - time, 0, size, size+100);
+				args.Graphics.FillRectangle(Brushes.Blue, Width - time, Height - 300, size, size + 200);
+				args.Graphics.ResetTransform();
 			};
 		}
 	}

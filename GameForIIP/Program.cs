@@ -15,6 +15,7 @@ namespace GameForIIP
         [STAThread]
         static void Main()
         {
+            Game.CreateMap();
             Application.Run(new MainWindow());
         }
     }
