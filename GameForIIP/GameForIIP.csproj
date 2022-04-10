@@ -46,13 +46,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameModel\GameModel.cs" />
+    <Compile Include="GameModel\Animations.cs" />
+    <Compile Include="GameModel\Command.cs" />
+    <Compile Include="GameModel\CreactureAnimations.cs" />
+    <Compile Include="GameModel\Directions.cs" />
+    <Compile Include="GameModel\Entity\EndMap.cs" />
+    <Compile Include="GameModel\Entity\Floor.cs" />
+    <Compile Include="GameModel\Entity\IEntity.cs" />
+    <Compile Include="GameModel\Entity\Wall.cs" />
+    <Compile Include="GameModel\GameModell.cs" />
     <Compile Include="GameModel\Map.cs" />
     <Compile Include="GameModel\MapCell.cs" />
     <Compile Include="GameModel\MapCreator.cs" />
-    <Compile Include="GameModel\Player.cs" />
-    <Compile Include="GameModel\TransformerCharToMapCell.cs" />
-    <Compile Include="GameModel\TransformerStringToChar.cs" />
+    <Compile Include="GameModel\Entity\Player.cs" />
+    <Compile Include="GameModel\Plaser.cs" />
+    <Compile Include="GameModel\Swapper.cs" />
+    <Compile Include="GameModel\Transformers.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +90,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Imajes\EndMap.png" />
+    <Content Include="Imajes\Floor.png" />
+    <Content Include="Imajes\Player.png" />
+    <Content Include="Imajes\Wall.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

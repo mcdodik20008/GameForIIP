@@ -6,10 +6,10 @@ namespace GameForIIP
     {
         public static Map Create()
         {
-            string FileNameOrPath = @"C:\Users\Админ\source\repos\GameForIIP\GameForIIP\GameModel\Map2.text";
+            string FileNameOrPath = @"C:\Users\Админ\source\repos\GameForIIP\GameForIIP\GameModel\Map.text";
             return new Map(
-                TransformerCharToMapCell.GetMap(
-                    TransformerStringToChar.GetMap(
+                Transformers.GetMapIEntity(
+                    Transformers.GetMapChar(
                         File.ReadAllLines(FileNameOrPath)
                     )
                 )

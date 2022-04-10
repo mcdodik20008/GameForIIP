@@ -1,70 +1,73 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
+using System.Linq;
+
 namespace GameForIIP
 {
 	class MainWindow : Form
 	{
-		GameModel game;
-		TableLayoutPanel table;
-		private int tickCount;
 		private readonly HashSet<Keys> pressedKeys = new HashSet<Keys>();
-
-		public MainWindow(GameModel game)
+		DirectoryInfo imagesDirectory = null;
+		Dictionary<string, Bitmap> bitmaps = new Dictionary<string, Bitmap>();
+		Animations gameState;
+		int tickCount = 0;
+		public MainWindow()
 		{
-			//BackColor = Color.Black;
-			
-			this.game = game;
-			table = new TableLayoutPanel();
-			for (int i = 0; i < game.LengthX; i++)
-				table.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / game.LengthX));
-
-			for (int i = 0; i < game.LengthY; i++)
-				table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / game.LengthY));
+			DoubleBuffered = true;
+			gameState = new Animations();
+			if (imagesDirectory == null)
+				imagesDirectory = new DirectoryInfo(@"C:\Users\Админ\source\repos\GameForIIP\GameForIIP\Imajes");
+			foreach (var e in imagesDirectory.GetFiles("*.png"))
+				bitmaps[e.Name] = (Bitmap)Image.FromFile(e.FullName);
 
 			var timer = new Timer();
-			timer.Interval = 15;
+			timer.Interval = 1000/8;
 			timer.Tick += TimerTick;
 			timer.Start();
-
 		}
-		static Dictionary<MapCell, Brush> MapCellToBrush = new Dictionary<MapCell, Brush>()
-		{
-			[MapCell.EndMap] = Brushes.Black,
-			[MapCell.Foolr] = Brushes.Blue,
-			[MapCell.Player] = Brushes.Green,
-			[MapCell.Wall] = Brushes.Brown,
-			[MapCell.Null] = null
-		};
+
         protected override void OnPaint(PaintEventArgs e)
         {
-			var graphics = e.Graphics;
+			e.Graphics.FillRectangle(
+				Brushes.Black, 0, 0, GameModell.ElementSize * GameModell.Map.LengthX,
+				GameModell.ElementSize * GameModell.Map.LengthY);
+
 			var Position = new Point(0, 0);
-			for (int x = 0; x < game.LengthX; x++)
+			for (int x = 0; x < GameModell.LengthX; x++)
 			{
-				for (int y = 0; y < game.LengthY; y++)
+				for (int y = 0; y < GameModell.LengthY; y++)
 				{
-					if (MapCellToBrush[GameModel.Map[x, y]] != null)
-						graphics.FillRectangle(MapCellToBrush[GameModel.Map[x, y]], new Rectangle(Position, game.SizeCell));
-					Position = new Point(Position.X + game.SizeCell.Width, Position.Y);
+					e.Graphics.DrawImage(bitmaps[GameModell.Map[x,y].GetNameImage()], Position);
+					Position = new Point(Position.X + GameModell.ElementSize, Position.Y);
 				}
-				Position = new Point(0, Position.Y + game.SizeCell.Height);
+				Position = new Point(0, Position.Y + GameModell.ElementSize);
 			}
 		}
 
 		protected override void OnKeyDown(KeyEventArgs e)
 		{
 			pressedKeys.Add(e.KeyCode);
-			GameModel.KeyPressed = e.KeyCode;
+			GameModell.KeyPressed = e.KeyCode;
+		}
+
+		protected override void OnKeyUp(KeyEventArgs e)
+		{
+			pressedKeys.Remove(e.KeyCode);
+			GameModell.KeyPressed = pressedKeys.Any() ? pressedKeys.Min() : Keys.None;
 		}
 
 		private void TimerTick(object sender, EventArgs args)
 		{
-
+			if (tickCount == 0) gameState.BeginAct();
+			if (tickCount == 7)
+				gameState.EndAct();
+			tickCount++;
+			if (tickCount == 8) 
+				tickCount = 0;
+			Invalidate();
 		}
 	}
 }
