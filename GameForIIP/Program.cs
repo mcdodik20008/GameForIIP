@@ -9,14 +9,16 @@ namespace GameForIIP
 {
     static class Program
     {
-        /// <summary>
-        /// Главная точка входа для приложения.
-        /// </summary>
-        [STAThread]
         static void Main()
         {
-            Game.CreateMap();
-            Application.Run(new MainWindow());
+            var clientSize = new Size(800, 600);
+            var game = new GameModel(clientSize);
+            Application.Run(new MainWindow(game) { 
+                ClientSize = clientSize, 
+                StartPosition = FormStartPosition.CenterScreen,
+                MaximumSize = clientSize,
+                MinimumSize = clientSize
+            });
         }
     }
 }

@@ -9,35 +9,62 @@ namespace GameForIIP
 {
 	class MainWindow : Form
 	{
-		public MainWindow()
-		{
-			// Включает двойную буферизацию, чтобы изображение не мерцало при перерисовке.
-			// В таком режиме OnPaint рисует не сразу на окне, а сначала на невидимой картинке (shadow buffer),
-			// а потом одномоментно подменяет текущее изображение дорисованной картинкой.
-			// Так окно не дорисованную картинку даже не показывает, что предотвращает мерцание.
-			DoubleBuffered = true;
-			ClientSize = new Size(600, 600);
-			var centerX = ClientSize.Width / 2;
-			var centerY = ClientSize.Height / 2;
-			var size = 100;
-			var radius = Math.Min(ClientSize.Width, ClientSize.Height) / 3;
+		GameModel game;
+		TableLayoutPanel table;
+		private int tickCount;
+		private readonly HashSet<Keys> pressedKeys = new HashSet<Keys>();
 
-			var time = 0;
+		public MainWindow(GameModel game)
+		{
+			//BackColor = Color.Black;
+			
+			this.game = game;
+			table = new TableLayoutPanel();
+			for (int i = 0; i < game.LengthX; i++)
+				table.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / game.LengthX));
+
+			for (int i = 0; i < game.LengthY; i++)
+				table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / game.LengthY));
+
 			var timer = new Timer();
-			timer.Interval = 1;
-			timer.Tick += (sender, args) =>
-			{
-				time++;
-				Invalidate();
-			};
+			timer.Interval = 15;
+			timer.Tick += TimerTick;
 			timer.Start();
 
-			Paint += (sender, args) =>
+		}
+		static Dictionary<MapCell, Brush> MapCellToBrush = new Dictionary<MapCell, Brush>()
+		{
+			[MapCell.EndMap] = Brushes.Black,
+			[MapCell.Foolr] = Brushes.Blue,
+			[MapCell.Player] = Brushes.Green,
+			[MapCell.Wall] = Brushes.Brown,
+			[MapCell.Null] = null
+		};
+        protected override void OnPaint(PaintEventArgs e)
+        {
+			var graphics = e.Graphics;
+			var Position = new Point(0, 0);
+			for (int x = 0; x < game.LengthX; x++)
 			{
-				args.Graphics.FillRectangle(Brushes.Blue, Width - time, 0, size, size+100);
-				args.Graphics.FillRectangle(Brushes.Blue, Width - time, Height - 300, size, size + 200);
-				args.Graphics.ResetTransform();
-			};
+				for (int y = 0; y < game.LengthY; y++)
+				{
+					if (MapCellToBrush[GameModel.Map[x, y]] != null)
+						graphics.FillRectangle(MapCellToBrush[GameModel.Map[x, y]], new Rectangle(Position, game.SizeCell));
+					Position = new Point(Position.X + game.SizeCell.Width, Position.Y);
+				}
+				Position = new Point(0, Position.Y + game.SizeCell.Height);
+			}
+		}
+
+		protected override void OnKeyDown(KeyEventArgs e)
+		{
+			pressedKeys.Add(e.KeyCode);
+			GameModel.KeyPressed = e.KeyCode;
+		}
+
+		private void TimerTick(object sender, EventArgs args)
+		{
+
 		}
 	}
 }

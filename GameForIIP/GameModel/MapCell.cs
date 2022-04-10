@@ -4,9 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameForIIP.Живое
+namespace GameForIIP
 {
-    class Shooter
+    public enum MapCell
     {
+        Foolr,
+        Wall,
+        EndMap,
+        Player,
+        Null
     }
 }
