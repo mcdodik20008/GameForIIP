@@ -17,7 +17,8 @@ namespace GameForIIP
 		{
 			DoubleBuffered = true;
 			if (imagesDirectory == null)
-				imagesDirectory = new DirectoryInfo(@"C:\Users\Админ\source\repos\GameForIIP\GameForIIP\Imajes");
+				imagesDirectory = new DirectoryInfo(@"..\..\Images");
+			// imagesDirectory.GetFiles("*.*").Where(s => s.ToString().EndsWith(".png") || s.ToString().EndsWith(".gif")) - так можно несколько типов извлекать
 			foreach (var e in imagesDirectory.GetFiles("*.png"))
 				bitmaps[e.Name] = (Bitmap)Image.FromFile(e.FullName);
 

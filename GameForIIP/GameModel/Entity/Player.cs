@@ -8,37 +8,32 @@ namespace GameForIIP
     {
         public const int PocketCapacity = 50;
         public int Pocket;
+        public bool isWalking = false;
         public Command Act(int x, int y)
         {
-            int dx = 0, dy = 0;
-            if (GameModell.KeyPressed == System.Windows.Forms.Keys.Up && x - 1 < GameModell.Map.LengthY)
+            // тут метод переписал, если нажали ходим и ходим только по полу
+            isWalking = true;
+            switch (GameModell.KeyPressed)
             {
-                dx = -1; dy = 0;
+                case System.Windows.Forms.Keys.Up:
+                    if (x - 1 < GameModell.Map.LengthY && GameModell.Map[x - 1, y] is Floor)
+                        return new Command() { DeltaX = -1, DeltaY = 0 };
+                    break;
+                case System.Windows.Forms.Keys.Down:
+                    if (x + 1 >= 0 && GameModell.Map[x + 1, y] is Floor)
+                        return new Command() { DeltaX = 1, DeltaY = 0 };
+                    break;
+                case System.Windows.Forms.Keys.Right:
+                    if (y + 1 < GameModell.Map.LengthY && GameModell.Map[x, y + 1] is Floor)
+                        return new Command() { DeltaX = 0, DeltaY = 1 };
+                    break;
+                case System.Windows.Forms.Keys.Left:
+                    if (y - 1 >= 0 && GameModell.Map[x, y - 1] is Floor)
+                        return new Command() { DeltaX = 0, DeltaY = -1 };
+                    break;
             }
-            if (GameModell.KeyPressed == System.Windows.Forms.Keys.Down && x + 1 >= 0)
-            {
-                dx = 1; dy = 0;
-            }
-            if (GameModell.KeyPressed == System.Windows.Forms.Keys.Right && y + 1 < GameModell.Map.LengthY)
-            {
-                dx = 0; dy = 1;
-            }
-            if (GameModell.KeyPressed == System.Windows.Forms.Keys.Left && y - 1 >= 0)
-            {
-                dx = 0; dy = -1;
-            }
-            if (GameModell.Map[x + dx, y + dy] is Wall ||
-                GameModell.Map[x + dx, y + dy] is EndMap ||
-                GameModell.Map[x + dx, y + dy] is MacineLevel1 ||
-                GameModell.Map[x + dx, y + dy] is Chest)
-            {
-                dx = 0; dy = 0;
-            }
-            return new Command()
-            {
-                DeltaX = dx,
-                DeltaY = dy
-            };
+            isWalking = false;
+            return new Command() { DeltaX = 0, DeltaY = 0 };
         }
 
         //положить ресы в сундук
@@ -46,8 +41,8 @@ namespace GameForIIP
         {
             throw new NotImplementedException();
         }
-
         public string GetNameImage() => "Player.png";
+        //public string GetNameImage() => this.isWalking ? "Player_Walk.gif" : "Player.png"; - если ходим подставляем гифку
 
         public int GetLayer() => 1;
 

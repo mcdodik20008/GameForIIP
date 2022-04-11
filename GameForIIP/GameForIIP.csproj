@@ -79,8 +79,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="GameModel\Map2.text" />
-    <None Include="GameModel\Map.text" />
+    <Content Include="GameModel\Map2.txt" />
+    <Content Include="GameModel\Map.txt" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -95,6 +95,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\Chest.png" />
+    <Content Include="Images\EndMap.png" />
+    <Content Include="Images\Floor.png" />
+    <Content Include="Images\Machine.png" />
+    <Content Include="Images\Player.png" />
+    <Content Include="Images\Player_Walk.gif" />
+    <Content Include="Images\Wall.png" />
     <Content Include="Imajes\Chest.png" />
     <Content Include="Imajes\EndMap.png" />
     <Content Include="Imajes\Floor.png" />

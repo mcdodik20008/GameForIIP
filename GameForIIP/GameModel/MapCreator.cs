@@ -6,7 +6,7 @@ namespace GameForIIP
     {
         public static Map Create()
         {
-            string FileNameOrPath = @"C:\Users\Админ\source\repos\GameForIIP\GameForIIP\GameModel\Map.text";
+            string FileNameOrPath = @"..\..\GameModel\Map.txt";
             return new Map(
                 Transformers.GetMapIEntity(
                     Transformers.GetMapChar(
