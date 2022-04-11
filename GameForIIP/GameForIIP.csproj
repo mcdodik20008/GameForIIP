@@ -48,11 +48,14 @@
   <ItemGroup>
     <Compile Include="GameModel\Animations.cs" />
     <Compile Include="GameModel\Command.cs" />
-    <Compile Include="GameModel\CreactureAnimations.cs" />
     <Compile Include="GameModel\Directions.cs" />
+    <Compile Include="GameModel\Entity\Chest.cs" />
     <Compile Include="GameModel\Entity\EndMap.cs" />
     <Compile Include="GameModel\Entity\Floor.cs" />
     <Compile Include="GameModel\Entity\IEntity.cs" />
+    <Compile Include="GameModel\Entity\IMachine.cs" />
+    <Compile Include="GameModel\Entity\MacineLevel1.cs" />
+    <Compile Include="GameModel\Entity\PlayerStorage.cs" />
     <Compile Include="GameModel\Entity\Wall.cs" />
     <Compile Include="GameModel\GameModell.cs" />
     <Compile Include="GameModel\Map.cs" />
@@ -92,8 +95,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Imajes\Chest.png" />
     <Content Include="Imajes\EndMap.png" />
     <Content Include="Imajes\Floor.png" />
+    <Content Include="Imajes\Machine.png" />
     <Content Include="Imajes\Player.png" />
     <Content Include="Imajes\Wall.png" />
   </ItemGroup>

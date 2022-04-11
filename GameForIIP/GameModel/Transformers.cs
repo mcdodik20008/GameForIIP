@@ -27,6 +27,8 @@ namespace GameForIIP
             ['E'] = new EndMap(),
             ['P'] = new Player(),
             ['W'] = new Wall(),
+            ['M'] = new MacineLevel1(),
+            ['C'] = new Chest()
         };
 
         public static IEntity[][] GetMapIEntity(List<List<char>> charCell) =>

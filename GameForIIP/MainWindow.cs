@@ -12,19 +12,17 @@ namespace GameForIIP
 		private readonly HashSet<Keys> pressedKeys = new HashSet<Keys>();
 		DirectoryInfo imagesDirectory = null;
 		Dictionary<string, Bitmap> bitmaps = new Dictionary<string, Bitmap>();
-		Animations gameState;
-		int tickCount = 0;
+		int timerTick = 0;
 		public MainWindow()
 		{
 			DoubleBuffered = true;
-			gameState = new Animations();
 			if (imagesDirectory == null)
 				imagesDirectory = new DirectoryInfo(@"C:\Users\Админ\source\repos\GameForIIP\GameForIIP\Imajes");
 			foreach (var e in imagesDirectory.GetFiles("*.png"))
 				bitmaps[e.Name] = (Bitmap)Image.FromFile(e.FullName);
 
 			var timer = new Timer();
-			timer.Interval = 1000/8;
+			timer.Interval = 200;
 			timer.Tick += TimerTick;
 			timer.Start();
 		}
@@ -36,11 +34,11 @@ namespace GameForIIP
 				GameModell.ElementSize * GameModell.Map.LengthY);
 
 			var Position = new Point(0, 0);
-			for (int x = 0; x < GameModell.LengthX; x++)
+			for (int x = 0; x < GameModell.SubMapSize; x++)
 			{
-				for (int y = 0; y < GameModell.LengthY; y++)
+				for (int y = 0; y < GameModell.SubMapSize; y++)
 				{
-					e.Graphics.DrawImage(bitmaps[GameModell.Map[x,y].GetNameImage()], Position);
+					e.Graphics.DrawImage(bitmaps[GameModell.VisibleMap[x,y].GetNameImage()], Position);
 					Position = new Point(Position.X + GameModell.ElementSize, Position.Y);
 				}
 				Position = new Point(0, Position.Y + GameModell.ElementSize);
@@ -61,12 +59,12 @@ namespace GameForIIP
 
 		private void TimerTick(object sender, EventArgs args)
 		{
-			if (tickCount == 0) gameState.BeginAct();
-			if (tickCount == 7)
-				gameState.EndAct();
-			tickCount++;
-			if (tickCount == 8) 
-				tickCount = 0;
+			GameModell.VisibleMap.GetSubMap(GameModell.Map, GameModell.Map.FindPlayerPos());
+			GameModell.Map.Act();
+			if (timerTick % 10 == 0)
+				GameModell.MachineFarming();
+			timerTick++;
+			GameModell.UpdateScore();
 			Invalidate();
 		}
 	}

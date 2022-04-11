@@ -1,33 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 
 namespace GameForIIP
 {
-    class Player : IEntity
-    { 
+    public class Player : IEntity
+    {
+        public const int PocketCapacity = 50;
+        public int Pocket;
         public Command Act(int x, int y)
         {
             int dx = 0, dy = 0;
-            if (GameModell.KeyPressed == System.Windows.Forms.Keys.Up && y + 1 < GameModell.Map.LengthY)
+            if (GameModell.KeyPressed == System.Windows.Forms.Keys.Up && x - 1 < GameModell.Map.LengthY)
             {
                 dx = -1; dy = 0;
             }
-            if (GameModell.KeyPressed == System.Windows.Forms.Keys.Down && y - 1 >= 0)
+            if (GameModell.KeyPressed == System.Windows.Forms.Keys.Down && x + 1 >= 0)
             {
                 dx = 1; dy = 0;
             }
-            if (GameModell.KeyPressed == System.Windows.Forms.Keys.Right && x + 1 < GameModell.Map.LengthY)
+            if (GameModell.KeyPressed == System.Windows.Forms.Keys.Right && y + 1 < GameModell.Map.LengthY)
             {
                 dx = 0; dy = 1;
             }
-            if (GameModell.KeyPressed == System.Windows.Forms.Keys.Left && x - 1 >= 0)
+            if (GameModell.KeyPressed == System.Windows.Forms.Keys.Left && y - 1 >= 0)
             {
                 dx = 0; dy = -1;
             }
-            if (GameModell.Map[x + dx, y + dy] != null && GameModell.Map[x + dx, y + dy].ToString() == "Digger.Sack")
+            if (GameModell.Map[x + dx, y + dy] is Wall ||
+                GameModell.Map[x + dx, y + dy] is EndMap ||
+                GameModell.Map[x + dx, y + dy] is MacineLevel1 ||
+                GameModell.Map[x + dx, y + dy] is Chest)
             {
                 dx = 0; dy = 0;
             }
@@ -41,5 +44,22 @@ namespace GameForIIP
         public string GetNameImage() => "Player.png";
 
         public int GetLayer() => 1;
+
+        public void TakeMachineResourses(Machine macine)
+        {
+            macine.GetResources(this);
+        }
+    }
+    public static class PlayerExtentions
+    {
+        public static List<Machine> GetAllMachineAround(this Player p, Map map, Point pos)
+        {
+            var lM = new List<Machine>();
+            for (int i = -1; i <= 1; i++)
+                for (int j = -1; j <= 1; j++)
+                    if (Math.Abs(i) != Math.Abs(j) && map[pos.X + i, pos.Y + j] is Machine m)
+                        lM.Add(m);
+            return lM;
+        }
     }
 }
