@@ -41,6 +41,12 @@ namespace GameForIIP
             };
         }
 
+        //положить ресы в сундук
+        internal void CommitResourseToChest(Chest item)
+        {
+            throw new NotImplementedException();
+        }
+
         public string GetNameImage() => "Player.png";
 
         public int GetLayer() => 1;
@@ -60,6 +66,16 @@ namespace GameForIIP
                     if (Math.Abs(i) != Math.Abs(j) && map[pos.X + i, pos.Y + j] is Machine m)
                         lM.Add(m);
             return lM;
+        }
+
+        public static List<Chest> GetAllChestAround(this Player p, Map map, Point pos)
+        {
+            var lC = new List<Chest>();
+            for (int i = -1; i <= 1; i++)
+                for (int j = -1; j <= 1; j++)
+                    if (Math.Abs(i) != Math.Abs(j) && map[pos.X + i, pos.Y + j] is Chest c)
+                        lC.Add(c);
+            return lC;
         }
     }
 }

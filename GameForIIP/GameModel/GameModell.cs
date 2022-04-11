@@ -37,7 +37,11 @@ namespace GameForIIP
 			var player = VisibleMap[playerPos.X, playerPos.Y] as Player;
 			var macines = player.GetAllMachineAround(VisibleMap, playerPos);
             foreach (var item in macines)
-				player.TakeMachineResourses(item);		
+				player.TakeMachineResourses(item);
+
+			var chests = player.GetAllChestAround(VisibleMap, playerPos);
+			foreach (var item in chests)
+				player.CommitResourseToChest(item);
 		}
 	}
 }

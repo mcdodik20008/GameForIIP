@@ -9,6 +9,7 @@ namespace GameForIIP
     public class Chest : IEntity
     {
         public const int ChestCapasity = 1000;
+        public int Resourses = 0;
 
         public Command Act(int x, int y) => Command.Passive;
 
@@ -17,9 +18,15 @@ namespace GameForIIP
 
         public string GetNameImage() => "Chest.png";
 
-        public void SaveResourse()
+        //сделай
+        public void SaveResourse(Player player)//не забудь про ёмкость
         {
+            throw new NotImplementedException();
+        }
 
+        public void GiveResourse(Player player)
+        {
+            throw new NotImplementedException();
         }
     }
 }
