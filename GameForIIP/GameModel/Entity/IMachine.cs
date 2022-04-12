@@ -14,6 +14,7 @@ namespace GameForIIP
         public int ProductivityPerSecond = 1;
         public int Resourses = 0;
         public int ResoursesToUpdate = 10;
+
         public abstract Command Act(int x, int y);
 
         public abstract int GetLayer();
@@ -38,8 +39,6 @@ namespace GameForIIP
             }
             player.Pocket += Resourses;
             Resourses = 0;
-        }
-
-        
+        }   
     }
 }

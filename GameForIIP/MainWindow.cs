@@ -24,7 +24,7 @@ namespace GameForIIP
 				bitmaps[e.Name] = (Bitmap)Image.FromFile(e.FullName);
 
 			var timer = new Timer();
-			timer.Interval = 200;
+			timer.Interval = 100;
 			timer.Tick += TimerTick;
 			timer.Start();
 		}

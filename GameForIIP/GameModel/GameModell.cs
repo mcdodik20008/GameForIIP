@@ -77,6 +77,7 @@ namespace GameForIIP
 					Map[machine.X, machine.Y] = machine.Update(player);
 					break;
 			}
+			Machines = Map.GetAllMacine();
 		}
     }
 }
