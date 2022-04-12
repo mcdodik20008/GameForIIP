@@ -8,6 +8,7 @@ namespace GameForIIP
 {
     public class Chest : IEntity
     {
+        public static int AllResourses = 0;
         public const int ChestCapasity = 1000;
         public int Resourses = 0;
 
@@ -19,14 +20,32 @@ namespace GameForIIP
         public string GetNameImage() => "Chest.png";
 
         //сделай
-        public void SaveResourse(Player player)//не забудь про ёмкость
+        public void SaveResourse(Player player) //не забудь про ёмкость
         {
-            throw new NotImplementedException();
+            if (Resourses + player.Pocket < ChestCapasity)
+            {
+                Resourses += player.Pocket;
+                player.Pocket = 0;
+            }
+            else
+            {
+                player.Pocket -= (ChestCapasity - Resourses);
+                Resourses = ChestCapasity;
+            }
         }
 
         public void GiveResourse(Player player)
         {
-            throw new NotImplementedException();
+            if (GameModell.KeyPressed == System.Windows.Forms.Keys.G) 
+            { 
+                if (player.Pocket + Resourses < Player.PocketCapacity)
+                    player.Pocket += Resourses;
+                else
+                {
+                    Resourses -= Player.PocketCapacity - player.Pocket;
+                    player.Pocket = Player.PocketCapacity;   
+                }
+            }    
         }
     }
 }

@@ -102,12 +102,6 @@
     <Content Include="Images\Player.png" />
     <Content Include="Images\Player_Walk.gif" />
     <Content Include="Images\Wall.png" />
-    <Content Include="Imajes\Chest.png" />
-    <Content Include="Imajes\EndMap.png" />
-    <Content Include="Imajes\Floor.png" />
-    <Content Include="Imajes\Machine.png" />
-    <Content Include="Imajes\Player.png" />
-    <Content Include="Imajes\Wall.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

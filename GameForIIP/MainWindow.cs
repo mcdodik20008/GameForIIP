@@ -13,6 +13,7 @@ namespace GameForIIP
 		DirectoryInfo imagesDirectory = null;
 		Dictionary<string, Bitmap> bitmaps = new Dictionary<string, Bitmap>();
 		int timerTick = 0;
+		
 		public MainWindow()
 		{
 			DoubleBuffered = true;
@@ -31,19 +32,22 @@ namespace GameForIIP
         protected override void OnPaint(PaintEventArgs e)
         {
 			e.Graphics.FillRectangle(
-				Brushes.Black, 0, 0, GameModell.ElementSize * GameModell.Map.LengthX,
+				Brushes.Black, 0, GameModell.ElementSize, GameModell.ElementSize * GameModell.Map.LengthX,
 				GameModell.ElementSize * GameModell.Map.LengthY);
-
-			var Position = new Point(0, 0);
+			
+			var Position = new Point(0, GameModell.ElementSize);
 			for (int x = 0; x < GameModell.SubMapSize; x++)
 			{
-				for (int y = 0; y < GameModell.SubMapSize; y++)
+				for (int y = 1; y < GameModell.SubMapSize+1; y++)
 				{
-					e.Graphics.DrawImage(bitmaps[GameModell.VisibleMap[x,y].GetNameImage()], Position);
+					e.Graphics.DrawImage(bitmaps[GameModell.VisibleMap[x,y-1].GetNameImage()], Position);
 					Position = new Point(Position.X + GameModell.ElementSize, Position.Y);
 				}
 				Position = new Point(0, Position.Y + GameModell.ElementSize);
 			}
+			e.Graphics.DrawString(GameModell.Score.ToString(), new Font("Arial", 32), Brushes.Gray, 0, GameModell.ElementSize / 3);
+			e.Graphics.DrawString(GameModell.ScorePlayer.ToString(), new Font("Arial", 32), Brushes.Black, GameModell.ElementSize, GameModell.ElementSize / 3);
+			e.Graphics.DrawString(GameModell.ScoreChest.ToString(), new Font("Arial", 32), Brushes.Brown, GameModell.ElementSize * 2, GameModell.ElementSize / 3);
 		}
 
 		protected override void OnKeyDown(KeyEventArgs e)
@@ -67,6 +71,7 @@ namespace GameForIIP
 			timerTick++;
 			GameModell.UpdateScore();
 			Invalidate();
+			
 		}
 	}
 }

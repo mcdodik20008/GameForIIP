@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-
+using System.Linq;
 namespace GameForIIP
 {
 	public class GameModell
 	{
 		public const int ElementSize = 65;
 		public const int SubMapSize = 12;
-		public int Score = 0;
+		public static int Score = 0;
+		public static int ScorePlayer = 0;
+		public static int ScoreChest = 0;
 		public static Keys KeyPressed;
 		public static Map Map { get; private set; }
 		public static Map VisibleMap { get; private set; }
@@ -41,7 +43,17 @@ namespace GameForIIP
 
 			var chests = player.GetAllChestAround(VisibleMap, playerPos);
 			foreach (var item in chests)
+			{
 				player.CommitResourseToChest(item);
+				//if (KeyPressed == Keys.G)
+				//	item.GiveResourse(player);
+			}
+
+			
+			ScorePlayer = player.Pocket;
+			if (chests.Count != 0)
+				ScoreChest = chests.Select(x => x.Resourses).Sum();
+			Score = player.Pocket + ScoreChest;
 		}
 	}
 }

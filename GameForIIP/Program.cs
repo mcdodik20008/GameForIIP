@@ -11,7 +11,7 @@ namespace GameForIIP
     {
         static void Main()
         {
-            var clientSize = new Size(800, 800);
+            var clientSize = new Size(800, 850);
             new GameModell(clientSize);
             Application.Run(new MainWindow() { 
                 ClientSize = clientSize, 

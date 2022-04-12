@@ -39,7 +39,7 @@ namespace GameForIIP
         //положить ресы в сундук
         internal void CommitResourseToChest(Chest item)
         {
-            throw new NotImplementedException();
+            item.SaveResourse(this);
         }
         public string GetNameImage() => "Player.png";
         //public string GetNameImage() => this.isWalking ? "Player_Walk.gif" : "Player.png"; - если ходим подставляем гифку
