@@ -19,8 +19,7 @@ namespace GameForIIP
 
         public string GetNameImage() => "Chest.png";
 
-        //сделай
-        public void SaveResourse(Player player) //не забудь про ёмкость
+        public void SaveResourse(Player player)
         {
             if (Resourses + player.Pocket < ChestCapasity)
             {
@@ -37,13 +36,16 @@ namespace GameForIIP
         public void GiveResourse(Player player)
         {
             if (GameModell.KeyPressed == System.Windows.Forms.Keys.G) 
-            { 
+            {
                 if (player.Pocket + Resourses < Player.PocketCapacity)
+                {
                     player.Pocket += Resourses;
+                    Resourses = 0;
+                }
                 else
                 {
                     Resourses -= Player.PocketCapacity - player.Pocket;
-                    player.Pocket = Player.PocketCapacity;   
+                    player.Pocket = Player.PocketCapacity;
                 }
             }    
         }

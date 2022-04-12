@@ -11,7 +11,6 @@ namespace GameForIIP
         public bool isWalking = false;
         public Command Act(int x, int y)
         {
-            // тут метод переписал, если нажали ходим и ходим только по полу
             isWalking = true;
             switch (GameModell.KeyPressed)
             {
@@ -36,7 +35,6 @@ namespace GameForIIP
             return new Command() { DeltaX = 0, DeltaY = 0 };
         }
 
-        //положить ресы в сундук
         internal void CommitResourseToChest(Chest item)
         {
             item.SaveResourse(this);

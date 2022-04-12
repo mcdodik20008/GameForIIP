@@ -70,6 +70,7 @@ namespace GameForIIP
 				GameModell.MachineFarming();
 			timerTick++;
 			GameModell.UpdateScore();
+			GameModell.UpdateMachine();
 			Invalidate();
 			
 		}

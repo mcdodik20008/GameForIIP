@@ -40,24 +40,18 @@ namespace GameForIIP
                     Mapp[i][j] = value;
             }
         }
-
-        public void SwapCells(Point CurrentPos, int dx, int dy)
-        {
-            var sup = Mapp[CurrentPos.X][CurrentPos.Y];
-            Mapp[CurrentPos.X][CurrentPos.Y] = Mapp[CurrentPos.X + dx][CurrentPos.Y + dy];
-            Mapp[CurrentPos.X + dx][CurrentPos.Y + dy] = sup;
-        }
     }
 
     public static class MapExtention
     {
         public static void GetSubMap(this Map thisMap, Map otherMap, Point point)
         {
+            var x = GameModell.SubMapSize;
             int ii = 0;
-            for (int i = point.X - GameModell.SubMapSize / 2; i < point.X + GameModell.SubMapSize / 2 + GameModell.SubMapSize % 2; i++)
+            for (int i = point.X - x / 2; i < point.X + x / 2 + x % 2; i++)
             {
                 int jj = 0;
-                for (int j = point.Y - GameModell.SubMapSize / 2; j < point.Y + GameModell.SubMapSize / 2 + GameModell.SubMapSize % 2; j++)
+                for (int j = point.Y - x / 2; j < point.Y + x / 2 + x % 2; j++)
                 {
                     thisMap[ii, jj++] = i < otherMap.LengthX && i > 0 && j < otherMap.LengthY && j > 0 ?
                         otherMap[i, j] : new EndMap();
