@@ -18,8 +18,11 @@ namespace GameForIIP
 
         public override Machine Update(Player player)
         {
-            if (player.Pocket > ResoursesToUpdate)
+            if (player.Pocket >= ResoursesToUpdate)
+            {
+                player.Pocket -= ResoursesToUpdate;
                 return new MachineLevel2(Resourses, X, Y);
+            }
             //else
             //    new Message().ShowDialog();
             return this;

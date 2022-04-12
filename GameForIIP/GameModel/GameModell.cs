@@ -74,7 +74,8 @@ namespace GameForIIP
 			switch (KeyPressed)
 			{
 				case Keys.U:
-					Map[machine.X, machine.Y] = machine.Update(player);
+					if (machine != null)
+						Map[machine.X, machine.Y] = machine.Update(player);
 					break;
 			}
 			Machines = Map.GetAllMacine();
