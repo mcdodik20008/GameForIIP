@@ -19,7 +19,7 @@ namespace GameForIIP
 		public static int LengthX { get => Map.LengthX; }
 		public static int LengthY { get => Map.LengthY; }
 		public static int MinLength { get => Map.MinLength; }
-		public static List<Machine> Machines { get; private set; }
+		public static List<Machine> Machines { get; set; }
 
 		public GameModell(Size WindowSize)
 		{
@@ -29,20 +29,21 @@ namespace GameForIIP
 			Machines = Map.GetAllMacine();
 		}
 
-		public static void MachineFarming()
+		public static void MachineFarming(HashSet<Keys> keys)
 		{
 			foreach (var item in Machines)
 				item.Farming();
 		}
 
-		static List<Keys> GoodButtons = new List<Keys>()
-			{ Keys.P, Keys.G };
-		public static void UpdateScore()
+		static List<Keys> GoodButtons = new List<Keys>() { Keys.P, Keys.G };
+		public static void UpdateScore(HashSet<Keys> keys)
 		{
+			var playerPos = VisibleMap.FindPlayerPos();
+			var player = VisibleMap[playerPos.X, playerPos.Y] as Player;
+			ScorePlayer = player.Pocket;
 			if (GoodButtons.Any(key => key == KeyPressed))
 			{
-				var playerPos = VisibleMap.FindPlayerPos();
-				var player = VisibleMap[playerPos.X, playerPos.Y] as Player;
+				
 				var machine = player.GetAllMachineAround(VisibleMap, playerPos).FirstOrDefault();
 				var chest = player.GetAllChestAround(VisibleMap, playerPos).FirstOrDefault();
 
@@ -60,25 +61,14 @@ namespace GameForIIP
 						break;
 				}
 
-				ScorePlayer = player.Pocket;
+				
 				ScoreChest = chest != null ? chest.Resourses : ScoreChest; //тут ошибка, если 2 сундука, то сломатется
 				Score = player.Pocket + ScoreChest;
 			}
 		}
 
-        internal static void UpdateMachine()
-        {
-			var playerPos = VisibleMap.FindPlayerPos();
-			var player = VisibleMap[playerPos.X, playerPos.Y] as Player;
-			var machine = player.GetAllMachineAround(VisibleMap, playerPos).FirstOrDefault();
-			switch (KeyPressed)
-			{
-				case Keys.U:
-					if (machine != null)
-						Map[machine.X, machine.Y] = machine.Update(player);
-					break;
-			}
-			Machines = Map.GetAllMacine();
-		}
+
+
+
     }
 }

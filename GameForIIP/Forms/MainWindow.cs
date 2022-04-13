@@ -13,7 +13,7 @@ namespace GameForIIP
 		DirectoryInfo imagesDirectory = null;
 		Dictionary<string, Bitmap> bitmaps = new Dictionary<string, Bitmap>();
 		int timerTick = 0;
-		
+		public static Timer timer = new Timer();
 		public MainWindow()
 		{
 			DoubleBuffered = true;
@@ -23,7 +23,7 @@ namespace GameForIIP
 			foreach (var e in imagesDirectory.GetFiles("*.png"))
 				bitmaps[e.Name] = (Bitmap)Image.FromFile(e.FullName);
 
-			var timer = new Timer();
+			
 			timer.Interval = 100;
 			timer.Tick += TimerTick;
 			timer.Start();
@@ -65,12 +65,14 @@ namespace GameForIIP
 		private void TimerTick(object sender, EventArgs args)
 		{
 			GameModell.VisibleMap.GetSubMap(GameModell.Map, GameModell.Map.FindPlayerPos());
-			GameModell.Map.Act();
+			GameModell.Map.Act(pressedKeys);
 			if (timerTick % 10 == 0)
-				GameModell.MachineFarming();
+				GameModell.MachineFarming(pressedKeys);
 			timerTick++;
-			GameModell.UpdateScore();
-			GameModell.UpdateMachine();
+			GameModell.UpdateScore(pressedKeys);
+			GameModell.Map.UpdateMachine(pressedKeys);
+			GameModell.Map.Openshop(pressedKeys);
+			GameModell.KeyPressed = Keys.None;
 			Invalidate();
 			
 		}

@@ -10,24 +10,14 @@ namespace GameForIIP
         public static char[][] GetMapChar(string[] stringMap) =>
     stringMap.Select(x => x.Select(y => y).ToArray()).ToArray();
 
-        public static Dictionary<char, MapCell> charToMapCell = new Dictionary<char, MapCell>()
-        {
-            ['F'] = MapCell.Foolr,
-            ['E'] = MapCell.EndMap,
-            ['P'] = MapCell.Player,
-            ['W'] = MapCell.Wall,
-        };
-
-        public static MapCell[][] GetMapCell(List<List<char>> charCell) =>
-            charCell.Select(x => x.Select(y => charToMapCell[y]).ToArray()).ToArray();
-
         public static Dictionary<char, IEntity> charToIEntity = new Dictionary<char, IEntity>()
         {
             ['F'] = new Floor(),
             ['E'] = new EndMap(),
             ['P'] = new Player(),
             ['W'] = new Wall(),
-            ['C'] = new Chest()
+            ['C'] = new Chest(),
+            ['S'] = new EShop()
         };
 
         public static IEntity[][] GetMapIEntity(char[][] charCell)

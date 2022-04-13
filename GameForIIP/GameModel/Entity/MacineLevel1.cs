@@ -20,11 +20,9 @@ namespace GameForIIP
         {
             if (player.Pocket >= ResoursesToUpdate)
             {
-                player.Pocket -= ResoursesToUpdate;
+                player.Pocket = player.Pocket - ResoursesToUpdate;
                 return new MachineLevel2(Resourses, X, Y);
             }
-            //else
-            //    new Message().ShowDialog();
             return this;
         }
     }

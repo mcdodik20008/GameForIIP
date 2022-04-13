@@ -70,5 +70,15 @@ namespace GameForIIP
                         lC.Add(c);
             return lC;
         }
+
+        public static List<EShop> GetAllShopAround(this Player p, Map map, Point pos)
+        {
+            var lC = new List<EShop>();
+            for (int i = -1; i <= 1; i++)
+                for (int j = -1; j <= 1; j++)
+                    if (Math.Abs(i) != Math.Abs(j) && map[pos.X + i, pos.Y + j] is EShop c)
+                        lC.Add(c);
+            return lC;
+        }
     }
 }
