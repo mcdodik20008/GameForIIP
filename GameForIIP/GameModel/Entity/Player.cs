@@ -8,10 +8,8 @@ namespace GameForIIP
     {
         public const int PocketCapacity = 50;
         public int Pocket;
-        public bool isWalking = false;
         public Command Act(int x, int y)
         {
-            isWalking = true;
             switch (GameModell.KeyPressed)
             {
                 case System.Windows.Forms.Keys.Up:
@@ -31,7 +29,6 @@ namespace GameForIIP
                         return new Command() { DeltaX = 0, DeltaY = -1 };
                     break;
             }
-            isWalking = false;
             return new Command() { DeltaX = 0, DeltaY = 0 };
         }
 
@@ -40,7 +37,6 @@ namespace GameForIIP
             item.SaveResourse(this);
         }
         public string GetNameImage() => "Player.png";
-        //public string GetNameImage() => this.isWalking ? "Player_Walk.gif" : "Player.png"; - если ходим подставляем гифку
 
         public int GetLayer() => 1;
 
