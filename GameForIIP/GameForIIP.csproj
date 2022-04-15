@@ -46,41 +46,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\Shop.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="GameModel\Animations.cs" />
     <Compile Include="GameModel\Command.cs" />
-    <Compile Include="GameModel\Directions.cs" />
     <Compile Include="GameModel\Entity\Chest.cs" />
     <Compile Include="GameModel\Entity\EndMap.cs" />
     <Compile Include="GameModel\Entity\Floor.cs" />
     <Compile Include="GameModel\Entity\IEntity.cs" />
-    <Compile Include="GameModel\Entity\IMachine.cs" />
-    <Compile Include="GameModel\Entity\MachineLevel2.cs" />
-    <Compile Include="GameModel\Entity\MacineLevel1.cs" />
-    <Compile Include="GameModel\Entity\PlayerStorage.cs" />
-    <Compile Include="GameModel\Entity\EShop.cs" />
+    <Compile Include="GameModel\Entity\Machine.cs" />
     <Compile Include="GameModel\Entity\Wall.cs" />
     <Compile Include="GameModel\GameModell.cs" />
     <Compile Include="GameModel\Map.cs" />
-    <Compile Include="GameModel\MapCell.cs" />
     <Compile Include="GameModel\MapCreator.cs" />
     <Compile Include="GameModel\Entity\Player.cs" />
-    <Compile Include="GameModel\Plaser.cs" />
+    <Compile Include="GameModel\Score.cs" />
     <Compile Include="GameModel\Swapper.cs" />
     <Compile Include="GameModel\Transformers.cs" />
     <Compile Include="Forms\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Message.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\Message.resx">
-      <DependentUpon>Message.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -109,7 +94,7 @@
     <Content Include="Images\Chest.png" />
     <Content Include="Images\EndMap.png" />
     <Content Include="Images\Floor.png" />
-    <Content Include="Images\Machine.png" />
+    <Content Include="Images\Machine1.png" />
     <Content Include="Images\Machine2.png" />
     <Content Include="Images\Player.png" />
     <Content Include="Images\Player_Walk.gif" />

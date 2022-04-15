@@ -2,19 +2,9 @@
 {
     class Wall : IEntity
     {
-        public Command Act(int x, int y)
-        {
-            return new Command() { DeltaX = 0, DeltaY = 0 };
-        }
-
-        public bool DeadInConflict(IEntity conflictedObject)
-        {
-            return true;
-        }
-
+        public Command Act(int x, int y) => Command.Passive;
         public string GetNameImage() => "Wall.png";
-        
         public int GetLayer() => 1;
-        
+        public static IEntity Create() => new Wall();
     }
 }

@@ -1,17 +1,11 @@
-﻿using System;
-
-namespace GameForIIP
+﻿namespace GameForIIP
 {
     public class EndMap : IEntity
     {
-        public Command Act(int x, int y)
-        {
-            return new Command() { DeltaX = 0, DeltaY = 0 };
-        }
-
+        public Command Act(int x, int y) => Command.Passive;
+        public static IEntity Create() => new EndMap();
         public int GetLayer() => 1;
-
         public string GetNameImage() => "EndMap.png";
-        
+
     }
 }

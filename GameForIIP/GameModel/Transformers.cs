@@ -1,37 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 
 namespace GameForIIP
 {
     public static class Transformers
     {
-        public static char[][] GetMapChar(string[] stringMap) =>
-    stringMap.Select(x => x.Select(y => y).ToArray()).ToArray();
+        public static IEnumerable<IEnumerable<char>> GetMapChar(string[] stringMap) =>
+                    stringMap.Select(x => x.Select(y => y));
 
-        public static Dictionary<char, IEntity> charToIEntity = new Dictionary<char, IEntity>()
+        public static Dictionary<char, Func<IEntity>> charToIEntity = new Dictionary<char, Func<IEntity>>()
         {
-            ['F'] = new Floor(),
-            ['E'] = new EndMap(),
-            ['P'] = new Player(),
-            ['W'] = new Wall(),
-            ['C'] = new Chest(),
-            ['S'] = new EShop()
+            ['F'] = Floor.Create,
+            ['E'] = EndMap.Create,
+            ['P'] = Player.Create,
+            ['W'] = Wall.Create,
+            ['C'] = Chest.Create,
+            ['M'] = Machine.Create
         };
 
-        public static IEntity[][] GetMapIEntity(char[][] charCell)
-        {
-            var iEnt = new IEntity[charCell.Length][];
-            for (int i = 0; i < charCell.Length; i++)
-            {
-                iEnt[i] = new IEntity[charCell[0].Length];
-                for (int j = 0; j < charCell[0].Length; j++)
-                {
-                    iEnt[i][j] = charCell[i][j] != 'M' ? charToIEntity[charCell[i][j]] : new MacineLevel1(i, j);
-                }
-            }
-            return iEnt;
-        }
+        public static IEntity[][] GetMapIEntity(IEnumerable<IEnumerable<char>> charCell) =>
+            charCell.Select(x => x.Select(y => charToIEntity[y]()).ToArray()).ToArray();
     }
 }

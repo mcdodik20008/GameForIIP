@@ -35,48 +35,31 @@ namespace GameForIIP
             return new Command() { DeltaX = 0, DeltaY = 0 };
         }
 
-        internal void CommitResourseToChest(Chest item)
-        {
+        public void CommitResourseToChest(Chest item) => 
             item.SaveResourse(this);
-        }
+        
         public string GetNameImage() => "Player.png";
-        //public string GetNameImage() => this.isWalking ? "Player_Walk.gif" : "Player.png"; - если ходим подставляем гифку
 
         public int GetLayer() => 1;
 
-        public void TakeMachineResourses(Machine macine)
-        {
+        public void TakeMachineResourses(Machine macine) =>
             macine.GetResources(this);
-        }
+        
+        public static IEntity Create() => new Player();
     }
     public static class PlayerExtentions
     {
-        public static List<Machine> GetAllMachineAround(this Player p, Map map, Point pos)
-        {
-            var lM = new List<Machine>();
-            for (int i = -1; i <= 1; i++)
-                for (int j = -1; j <= 1; j++)
-                    if (Math.Abs(i) != Math.Abs(j) && map[pos.X + i, pos.Y + j] is Machine m)
-                        lM.Add(m);
-            return lM;
-        }
+        public static List<Machine> GetAllMachineAround(this Player p, Map map, Point pos) => GetAllTAround<Machine>(p, map, pos);
 
-        public static List<Chest> GetAllChestAround(this Player p, Map map, Point pos)
-        {
-            var lC = new List<Chest>();
-            for (int i = -1; i <= 1; i++)
-                for (int j = -1; j <= 1; j++)
-                    if (Math.Abs(i) != Math.Abs(j) && map[pos.X + i, pos.Y + j] is Chest c)
-                        lC.Add(c);
-            return lC;
-        }
+        public static List<Chest> GetAllChestAround(this Player p, Map map, Point pos) => GetAllTAround<Chest>(p, map, pos);
 
-        public static List<EShop> GetAllShopAround(this Player p, Map map, Point pos)
+        private static List<T> GetAllTAround<T>(this Player p, Map map, Point pos)
+            where T : IEntity
         {
-            var lC = new List<EShop>();
+            var lC = new List<T>();
             for (int i = -1; i <= 1; i++)
                 for (int j = -1; j <= 1; j++)
-                    if (Math.Abs(i) != Math.Abs(j) && map[pos.X + i, pos.Y + j] is EShop c)
+                    if (Math.Abs(i) != Math.Abs(j) && map[pos.X + i, pos.Y + j] is T c)
                         lC.Add(c);
             return lC;
         }

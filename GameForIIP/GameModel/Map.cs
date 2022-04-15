@@ -5,11 +5,9 @@ using System.Drawing;
 namespace GameForIIP
 {
     public class Map
-    { 
+    {
         //map is sqare
         public IEntity[][] Mapp;
-
-        public MapCell[][] WasBeforePlayer;
         public int LengthX { get => Mapp.Length; }
         public int LengthY { get => Mapp[0].Length; }
         public int MinLength { get => Math.Min(Mapp.Length, Mapp[0].Length); }
@@ -18,17 +16,16 @@ namespace GameForIIP
         {
             Mapp = new IEntity[size][];
             for (int i = 0; i < Mapp.Length; i++)
-                Mapp[i] = new IEntity[size];    
+                Mapp[i] = new IEntity[size];
         }
 
-        public Map(IEntity[][] mapCells)
-        {
+        public Map(IEntity[][] mapCells) =>
             Mapp = mapCells;
-        }
+
 
         public IEntity this[int i, int j]
         {
-            get 
+            get
             {
                 if (i < Mapp.Length && j < Mapp[i].Length)
                     return Mapp[i][j];
@@ -66,7 +63,7 @@ namespace GameForIIP
                 for (int j = 0; j < map.LengthY; j++)
                     if (map[i, j] is Player)
                         return new Point(i, j);
-            return new Point(0, 0);
+            throw new Exception("На поле нет игрока");
         }
 
         public static List<Machine> GetAllMacine(this Map map)
