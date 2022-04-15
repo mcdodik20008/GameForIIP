@@ -15,6 +15,8 @@
 
         public string GetNameImage() => $"Machine{level}.png";
 
+        public static IEntity Create() => new Machine();
+
         public void Update(Player player)
         {
             if (player.Pocket >= ResoursesToUpdate && level + 1 <= maxLevel)
@@ -45,6 +47,6 @@
             Resourses = 0;
         }
 
-        public static IEntity Create() => new Machine();
+        
     }
 }

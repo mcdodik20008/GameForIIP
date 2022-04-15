@@ -9,6 +9,8 @@ namespace GameForIIP
         public const int PocketCapacity = 50;
         public int Pocket;
         public bool isWalking = false;
+        public static IEntity Create() => new Player();
+
         public Command Act(int x, int y)
         {
             isWalking = true;
@@ -43,9 +45,7 @@ namespace GameForIIP
         public int GetLayer() => 1;
 
         public void TakeMachineResourses(Machine macine) =>
-            macine.GetResources(this);
-        
-        public static IEntity Create() => new Player();
+            macine.GetResources(this);  
     }
     public static class PlayerExtentions
     {

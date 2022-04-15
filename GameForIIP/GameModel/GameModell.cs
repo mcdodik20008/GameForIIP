@@ -13,7 +13,7 @@ namespace GameForIIP
         public static Keys KeyPressed;
         public static Map Map { get; private set; }
         public static Map VisibleMap { get; private set; }
-        public static int LengthX { get => Map.LengthX; }
+        public static int LengthX { get => Map.LengthX; }// можно убрать, так-то смысла нет в этом
         public static int LengthY { get => Map.LengthY; }
         public static int MinLength { get => Map.MinLength; }
         public static List<Machine> Machines { get; private set; }

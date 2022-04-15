@@ -42,7 +42,6 @@ namespace GameForIIP
                 }
                 Resourses -= Player.PocketCapacity - player.Pocket;
                 player.Pocket = Player.PocketCapacity;
-
             }  
         }
     }

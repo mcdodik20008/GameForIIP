@@ -13,15 +13,13 @@ namespace GameForIIP
 
         public static void UpdateMachine(this Map map)
         {
-            var playerPos = GameModell.VisibleMap.FindPlayerPos();
-            var player = GameModell.VisibleMap[playerPos.X, playerPos.Y] as Player;
-            var machine = player.GetAllMachineAround(GameModell.VisibleMap, playerPos).FirstOrDefault();
-            switch (GameModell.KeyPressed)
+            if (GameModell.KeyPressed == Keys.U)
             {
-                case Keys.U:
-                    if (machine != null)
-                        machine.Update(player);
-                    break;
+                var playerPos = GameModell.VisibleMap.FindPlayerPos();
+                var player = GameModell.VisibleMap[playerPos.X, playerPos.Y] as Player;
+                var machine = player.GetAllMachineAround(GameModell.VisibleMap, playerPos).FirstOrDefault();
+                if (machine != null)
+                    machine.Update(player);
             }
         }
     }
